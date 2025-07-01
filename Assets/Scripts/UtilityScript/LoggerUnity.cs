@@ -6,7 +6,7 @@ namespace UtilityScripts
 {
     public class LoggerUnity : MonoBehaviour, IDebugLogger
     {
-        private static LoggerUnity instance;
+        public static LoggerUnity instance { get; private set; }
         private bool _testModeEnabled;
         Guid guid;
         
@@ -19,12 +19,7 @@ namespace UtilityScripts
                 _testModeEnabled = false;
                 guid = Guid.NewGuid();
             }
-        }
-
-
-        public static LoggerUnity GetInstance()
-        {
-            return instance;
+            DontDestroyOnLoad(gameObject);
         }
 
 

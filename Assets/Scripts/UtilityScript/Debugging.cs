@@ -5,14 +5,14 @@ namespace UtilityScripts
 {
     public class Debugging : MonoBehaviour, IDebugging
     {
-        private static Debugging instance;
+        public static Debugging instance { get; private set; }
 
         private bool _infoLoggingEnabled;
         private bool _debugLoggingEnabled;
         private bool _warningLoggingEnabled;
         private bool _errorLoggingEnabled;
 
-        [SerializeField] private LoggerUnity logger;
+        //[SerializeField] private LoggerUnity logger;
         private Guid guid;
 
 
@@ -27,13 +27,7 @@ namespace UtilityScripts
                 this._errorLoggingEnabled = false;
                 this.guid = Guid.NewGuid();
             }
-        }
-
-
-
-        public static Debugging GetInstance()
-        {
-            return instance;
+            DontDestroyOnLoad(gameObject);
         }
 
 
@@ -101,7 +95,7 @@ namespace UtilityScripts
         {
             if (_debugLoggingEnabled)
             {
-                logger.WriteLine(log);
+                LoggerUnity.instance.WriteLine(log);
                 return true;
             }
             else
@@ -115,7 +109,7 @@ namespace UtilityScripts
         {
             if (_infoLoggingEnabled)
             {
-                logger.WriteLine(log);
+                LoggerUnity.instance.WriteLine(log);
                 return true;
             }
             else
@@ -129,7 +123,7 @@ namespace UtilityScripts
         {
             if (_warningLoggingEnabled)
             {
-                logger.WriteLine(log);
+                LoggerUnity.instance.WriteLine(log);
                 return true;
             }
             else
@@ -143,7 +137,7 @@ namespace UtilityScripts
         {
             if (_errorLoggingEnabled)
             {
-                logger.WriteLine(log);
+                LoggerUnity.instance.WriteLine(log);
                 return true;
             }
             else
