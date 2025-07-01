@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UtilityScripts;
 
@@ -13,6 +14,7 @@ public class GameStateManager : MonoBehaviour
     }
 
     private IFSM gameFSM;
+    private List<FSMTransition.EventHandler>[,] eventListeners;
 
 
     private void Awake()
@@ -42,6 +44,7 @@ public class GameStateManager : MonoBehaviour
     private void InitializeLocalVariables()
     {
         InitializeGameFSM();
+        InitializeEventListeners();
     }
 
 
@@ -49,14 +52,28 @@ public class GameStateManager : MonoBehaviour
     {
         gameFSM = new FSM(Enum.GetNames(typeof(GameManager.GameStates)).Length, Enum.GetNames(typeof(GameManager.GameStates)).Length, Debugging.instance);
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.init), (int)GameManager.GameEvents.initCompleted, (int)GameManager.GameStates.OnTitleScreen, this.HandleInitToOnTitleScreenTransition));
-        gameFSM.InsertTransition(new(((int)GameManager.GameStates.OnTitleScreen), (int)GameManager.GameEvents.StartPressed, (int)GameManager.GameStates.WaitingToPlay, this.HandleOnTitleScrenToWaitingToPlayTransition));
-        gameFSM.InsertTransition(new(((int)GameManager.GameStates.OnTitleScreen), (int)GameManager.GameEvents.ExitPressed, (int)GameManager.GameStates.Exit, this.HandleOnTitleScrenToExitTransition));
+        gameFSM.InsertTransition(new(((int)GameManager.GameStates.OnTitleScreen), (int)GameManager.GameEvents.StartPressed, (int)GameManager.GameStates.WaitingToPlay, this.HandleOnTitleScreenToWaitingToPlayTransition));
+        gameFSM.InsertTransition(new(((int)GameManager.GameStates.OnTitleScreen), (int)GameManager.GameEvents.ExitPressed, (int)GameManager.GameStates.Exit, this.HandleOnTitleScreenToExitTransition));
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.WaitingToPlay), (int)GameManager.GameEvents.PlayPressed, (int)GameManager.GameStates.InProgress, this.HandleWaitingToPlayToInProgressTransition));
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.InProgress), (int)GameManager.GameEvents.GameOver, (int)GameManager.GameStates.GameOver, this.HandleInProgressToGameOverTransition));
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.GameOver), (int)GameManager.GameEvents.GameOverTimeout, (int)GameManager.GameStates.OnBestScoreScreen, this.HandleGameOverToOnBestScoreScreenTransition));
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.OnBestScoreScreen), (int)GameManager.GameEvents.RestartPressed, (int)GameManager.GameStates.WaitingToPlay, this.HandleOnBestScoreScreenToWaitingToPlayTransition));
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.OnBestScoreScreen), (int)GameManager.GameEvents.BackToTitlePressed, (int)GameManager.GameStates.OnTitleScreen, this.HandleOnBestScoreScreenToOnTitleScreenTransition));
         gameFSM.SetInitialState((int)GameManager.GameStates.init);
+    }
+
+
+    private void InitializeEventListeners()
+    {
+        eventListeners = new List<FSMTransition.EventHandler>[Enum.GetNames(typeof(GameManager.GameStates)).Length, Enum.GetNames(typeof(GameManager.GameStates)).Length];
+        //initialize array with HandleInvalidEvent
+        for (int outer = 0; outer < Enum.GetNames(typeof(GameManager.GameStates)).Length; outer++)
+        {
+            for (int inner = 0; inner < Enum.GetNames(typeof(GameManager.GameStates)).Length; inner++)
+            {
+                eventListeners[outer, inner] = new List<FSMTransition.EventHandler>();
+            }
+        }
     }
 
 
@@ -74,51 +91,90 @@ public class GameStateManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Add the passed in event listener to the list of event listener that will be executed when this game transition happens
+    /// </summary>
+    /// <param name="gameState">the actual game state at the time of the event</param>
+    /// <param name="gameEvent">the actual event that occured</param>
+    /// <param name="eventListener">the event listener to be called on the transition</param>
+    public void AddEventListener(GameManager.GameStates gameState, GameManager.GameEvents gameEvent, FSMTransition.EventHandler eventListener)
+    {
+        eventListeners[(int)gameState, (int)gameEvent].Add(eventListener);
+    }
+
+
+    /// <summary>
+    /// Go through the list of previously added event listener and execute each event listener
+    /// </summary>
+    /// <param name="fromState"></param>
+    /// <param name="appliedEvent"></param>
+    /// <param name="toState"></param>
+    private void ExecuteEventHandler(int fromState, int appliedEvent, int toState)
+    {
+        List<FSMTransition.EventHandler> listeners = eventListeners[fromState, appliedEvent];
+        //Go through the list of eventListeners if there is at least one
+        if (listeners.Count >= 1)
+        {
+            foreach (FSMTransition.EventHandler listener in listeners)
+            {
+                listener(fromState, appliedEvent, toState);
+            }
+        }
+    }
+
 
     public void HandleInitToOnTitleScreenTransition(int fromState, int appliedEvent, int toState)
     {
         Debugging.instance.InfoLog("GameStateManager.HandleInitToOnTitleScreenTransition ");
+        ExecuteEventHandler(fromState, appliedEvent, toState);
     }
 
 
-    public void HandleOnTitleScrenToWaitingToPlayTransition(int fromState, int appliedEvent, int toState)
+    public void HandleOnTitleScreenToWaitingToPlayTransition(int fromState, int appliedEvent, int toState)
     {
         Debugging.instance.InfoLog("GameStateManager.HandleOnTitleScrenToWaitingToPlayTransition ");
+        ExecuteEventHandler(fromState, appliedEvent, toState);
     }
 
 
-    public void HandleOnTitleScrenToExitTransition(int fromState, int appliedEvent, int toState)
+    public void HandleOnTitleScreenToExitTransition(int fromState, int appliedEvent, int toState)
     {
         Debugging.instance.InfoLog("GameStateManager.HandleOnTitleScrenToExitTransition ");
+        ExecuteEventHandler(fromState, appliedEvent, toState);
     }
 
 
     public void HandleWaitingToPlayToInProgressTransition(int fromState, int appliedEvent, int toState)
     {
         Debugging.instance.InfoLog("GameStateManager.HandleWaitingToPlayToInProgressTransition ");
+        ExecuteEventHandler(fromState, appliedEvent, toState);
     }
 
 
     public void HandleInProgressToGameOverTransition(int fromState, int appliedEvent, int toState)
     {
         Debugging.instance.InfoLog("GameStateManager.HandleInProgressToGameOverTransition ");
+        ExecuteEventHandler(fromState, appliedEvent, toState);
     }
 
 
     public void HandleGameOverToOnBestScoreScreenTransition(int fromState, int appliedEvent, int toState)
     {
         Debugging.instance.InfoLog("GameStateManager.HandleInProgressToGameOverTransition ");
+        ExecuteEventHandler(fromState, appliedEvent, toState);
     }
 
 
     public void HandleOnBestScoreScreenToWaitingToPlayTransition(int fromState, int appliedEvent, int toState)
     {
         Debugging.instance.InfoLog("GameStateManager.HandleInProgressToGameOverTransition ");
+        ExecuteEventHandler(fromState, appliedEvent, toState);
     }
 
 
     public void HandleOnBestScoreScreenToOnTitleScreenTransition(int fromState, int appliedEvent, int toState)
     {
         Debugging.instance.InfoLog("GameStateManager.HandleOnBestScoreScreenToOnTitleScreenTransition ");
+        ExecuteEventHandler(fromState, appliedEvent, toState);
     }
 }

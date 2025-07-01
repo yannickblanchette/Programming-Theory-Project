@@ -29,9 +29,6 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance { get; private set; }
 
-    private IDebugLogger logger;
-    private IDebugging debugObject;
-    private IFSM gameFSM;
 
     private void Awake()
     {
@@ -58,7 +55,6 @@ public class GameManager : MonoBehaviour
 
     private void InitializeLocalVariables()
     {
-        logger = new LoggerUnity();
         
     }
 
