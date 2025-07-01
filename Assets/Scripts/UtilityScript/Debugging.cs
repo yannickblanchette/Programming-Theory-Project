@@ -27,7 +27,6 @@ namespace UtilityScripts
                 this._errorLoggingEnabled = false;
                 this.guid = Guid.NewGuid();
             }
-            DontDestroyOnLoad(gameObject);
         }
 
 

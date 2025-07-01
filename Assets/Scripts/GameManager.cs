@@ -43,7 +43,8 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        TurnOnAllDebugging();
+        GameStateManager.instance.ProcessEvent(GameManager.GameEvents.initCompleted);
     }
 
     // Update is called once per frame
@@ -56,6 +57,15 @@ public class GameManager : MonoBehaviour
     private void InitializeLocalVariables()
     {
         
+    }
+
+
+    private void TurnOnAllDebugging()
+    {
+        Debugging.instance.TurnOnErrorLogging();
+        Debugging.instance.TurnOnWarningLogging();
+        Debugging.instance.TurnOnDebugLogging();
+        Debugging.instance.TurnOnInfoLogging();
     }
 
 

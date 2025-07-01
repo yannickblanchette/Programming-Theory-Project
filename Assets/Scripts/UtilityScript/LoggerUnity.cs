@@ -19,7 +19,6 @@ namespace UtilityScripts
                 _testModeEnabled = false;
                 guid = Guid.NewGuid();
             }
-            DontDestroyOnLoad(gameObject);
         }
 
 

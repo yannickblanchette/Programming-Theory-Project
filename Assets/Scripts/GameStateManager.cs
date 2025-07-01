@@ -23,14 +23,12 @@ public class GameStateManager : MonoBehaviour
         {
             instance = this;
         }
-        DontDestroyOnLoad(gameObject);
-        InitializeLocalVariables();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        InitializeLocalVariables();
     }
 
     // Update is called once per frame
@@ -50,7 +48,7 @@ public class GameStateManager : MonoBehaviour
 
     private void InitializeGameFSM()
     {
-        gameFSM = new FSM(Enum.GetNames(typeof(GameManager.GameStates)).Length, Enum.GetNames(typeof(GameManager.GameStates)).Length, Debugging.instance);
+        gameFSM = new FSM(Enum.GetNames(typeof(GameManager.GameStates)).Length, Enum.GetNames(typeof(GameManager.GameEvents)).Length, Debugging.instance);
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.init), (int)GameManager.GameEvents.initCompleted, (int)GameManager.GameStates.OnTitleScreen, this.HandleInitToOnTitleScreenTransition));
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.OnTitleScreen), (int)GameManager.GameEvents.StartPressed, (int)GameManager.GameStates.WaitingToPlay, this.HandleOnTitleScreenToWaitingToPlayTransition));
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.OnTitleScreen), (int)GameManager.GameEvents.ExitPressed, (int)GameManager.GameStates.Exit, this.HandleOnTitleScreenToExitTransition));

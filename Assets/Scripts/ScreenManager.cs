@@ -14,7 +14,6 @@ public class ScreenManager : MonoBehaviour
         {
             instance = this;
         }
-        DontDestroyOnLoad(gameObject);
     }
 
 
