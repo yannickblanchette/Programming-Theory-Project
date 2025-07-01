@@ -3,16 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class ScreenManager : MonoBehaviour
 {
-    public static ScreenManager Instance { get; private set; }
+    public static ScreenManager instance { get; private set; }
 
     public const int sceneNumberTitleScreen = 0;
     public const int sceneNumberGameScreen = 1;
 
     private void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
         }
         DontDestroyOnLoad(gameObject);
     }
