@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScreenManager : MonoBehaviour
 {
     public static ScreenManager Instance { get; private set; }
 
-    public const int screenNumberTitleScreen = 0;
-    public const int screenNumberGameScreen = 1;
+    public const int sceneNumberTitleScreen = 0;
+    public const int sceneNumberGameScreen = 1;
 
     private void Awake()
     {
@@ -27,5 +28,23 @@ public class ScreenManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    // ABSTRACTION
+    /// <summary>
+    /// Loads the Game Screen scene
+    /// </summary>
+    public void LoadGameScreen()
+    {
+        SceneManager.LoadScene(sceneNumberGameScreen);
+    }
+
+
+    /// <summary>
+    /// Loads the Title Screen scene
+    /// </summary>
+    public void LoadTitleScreen()
+    {
+        SceneManager.LoadScene(sceneNumberTitleScreen);
     }
 }
