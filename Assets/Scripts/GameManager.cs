@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void HandleStartButton()
     {
-
+        GameStateManager.instance.ProcessEvent(GameManager.GameEvents.StartPressed);
     }
 
 
@@ -73,6 +73,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void HandleExitButton()
     {
-
+        GameStateManager.instance.ProcessEvent(GameManager.GameEvents.ExitPressed);
     }
 }

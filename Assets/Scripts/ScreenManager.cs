@@ -21,7 +21,7 @@ public class ScreenManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        AddEventListeners();
     }
 
     // Update is called once per frame
@@ -47,4 +47,19 @@ public class ScreenManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneNumberTitleScreen);
     }
+
+
+    private void AddEventListeners()
+    {
+        GameStateManager.instance.AddEventListener(GameManager.GameStates.OnTitleScreen, GameManager.GameEvents.StartPressed, HandleOnTitleScreenStartPressed);
+    }
+
+
+    private void HandleOnTitleScreenStartPressed(int fromState, int appliedEvent, int toState)
+    {
+        LoadGameScreen();
+    }
+
+
+
 }
