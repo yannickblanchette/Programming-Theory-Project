@@ -3,6 +3,30 @@ using UtilityScripts;
 
 public class GameManager : MonoBehaviour
 {
+    public enum GameStates
+    {
+        init,
+        OnTitleScreen,
+        WaitingToPlay,
+        InProgress,
+        GameOver,
+        OnBestScoreScreen,
+        Exit
+    }
+
+    public enum GameEvents
+    {
+        initCompleted,
+        StartPressed,
+        ExitPressed,
+        PlayPressed,
+        GameOver,
+        GameOverTimeout,
+        RestartPressed,
+        BackToTitlePressed
+    }
+
+
     public static GameManager instance { get; private set; }
 
     private IDebugLogger logger;
