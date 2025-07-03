@@ -1,5 +1,8 @@
 using UnityEngine;
 using UtilityScripts;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class GameManager : MonoBehaviour
 {
@@ -102,6 +105,12 @@ public class GameManager : MonoBehaviour
     {
         GameDataManager.instance.SaveGameData();
         GameStateManager.instance.ProcessEvent(GameManager.GameEvents.ExitPressed);
+
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
+        Application.Quit(); // original code to quit Unity player
+#endif
     }
 
 
