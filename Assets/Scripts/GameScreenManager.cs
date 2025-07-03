@@ -8,6 +8,7 @@ public class GameScreenManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bestScoreText;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI instructionsText;
+    [SerializeField] private GameObject instructionsArea;
 
     private int playerScore;
 
@@ -34,7 +35,10 @@ public class GameScreenManager : MonoBehaviour
         switch (gameState)
         {
             case GameManager.GameStates.WaitingToPlay:
-                HandleWaitingToPlay();
+                HandleWaitingToPlayState();
+                break;
+            case GameManager.GameStates.InProgress:
+                HandleInProgressState();
                 break;
             default: 
                 break;
@@ -77,11 +81,35 @@ public class GameScreenManager : MonoBehaviour
     }
 
 
-    private void HandleWaitingToPlay()
+    private void HandleWaitingToPlayState()
     {
         if (KeyboardManager.instance.IsSpacebarPressed())
         {
+            UpdateIntructionsText();
             GameStateManager.instance.ProcessEvent(GameManager.GameEvents.PlayPressed);
         }
     }
+
+
+    private void UpdateIntructionsText()
+    {
+        instructionsText.text = "GAME IS IN PROGRESS";
+    }
+
+
+    private void HandleInProgressState()
+    {
+        if (KeyboardManager.instance.IsSpacebarPressed())
+        {
+            if (instructionsArea.activeSelf)
+            {
+                instructionsArea.SetActive(false);
+            }
+            else
+            {
+                GameStateManager.instance.ProcessEvent(GameManager.GameEvents.GameOver);
+            }
+        }
+    }
+
 }
