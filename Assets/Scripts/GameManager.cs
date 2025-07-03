@@ -31,21 +31,11 @@ public class GameManager : MonoBehaviour
         BackToTitlePressed
     }
 
-    public const int bestScoreArrayLength = 5;
     public const int invalidScore = -1;
 
 
-
-
-
-    [System.Serializable]
-    public class BestScoreEntry
-    {
-        public string name { get; set; }
-        public int score { get; set; }
-    }
     public static GameManager instance { get; private set; }
-    public BestScoreEntry[] bestScoreArray { get; private set; }
+
    
     
     // ENCAPSULATION
@@ -76,7 +66,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         TurnOnAllDebugging();
-        FillBestScoreArray();   
+
         GameStateManager.instance.ProcessEvent(GameManager.GameEvents.initCompleted);
     }
 
@@ -125,18 +115,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void FillBestScoreArray()
-    {
-        bestScoreArray = new BestScoreEntry[bestScoreArrayLength];
-        for (int i = 0; i < bestScoreArrayLength; i++)
-        {
-            BestScoreEntry entry = new BestScoreEntry();
 
-            entry.name = GameDataManager.instance.saveData.bestScoreArray[i].name;
-            entry.score = GameDataManager.instance.saveData.bestScoreArray[i].score;
-            bestScoreArray[i] = entry;
-        }
-    }
 
 
 
