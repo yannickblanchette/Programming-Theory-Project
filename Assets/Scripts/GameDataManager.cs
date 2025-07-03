@@ -40,6 +40,10 @@ public class GameDataManager : MonoBehaviour
             {
                 InitializeSaveData();
             }
+            else
+            {
+                SanitizeGameData();
+            }
         }
         else
         {
@@ -66,6 +70,29 @@ public class GameDataManager : MonoBehaviour
             entry.name = string.Empty;
             entry.score = GameManager.invalidScore;
             saveData.bestScoreArray[i] = entry;
+        }
+    }
+
+
+    private void SanitizeGameData()
+    {
+        for (int i = 0; i < BestScoreManager.bestScoreArrayLength; i++)
+        {
+            if (saveData.bestScoreArray[i] == null)
+            {
+                BestScoreManager.BestScoreEntry entry = new BestScoreManager.BestScoreEntry();
+                entry.name = string.Empty;
+                entry.score = GameManager.invalidScore;
+                saveData.bestScoreArray[i] = entry;
+            }
+            else
+            {
+                if (saveData.bestScoreArray[i].name == null)
+                {
+                    saveData.bestScoreArray[i].name = string.Empty;
+                    saveData.bestScoreArray[i].score = GameManager.invalidScore;
+                }
+            }
         }
     }
 

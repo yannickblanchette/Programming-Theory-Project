@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using UtilityScripts;
 
 public class BestScoreManager : MonoBehaviour
 {
@@ -16,13 +17,20 @@ public class BestScoreManager : MonoBehaviour
     public BestScoreEntry[] bestScoreArray { get; private set; }
 
 
-
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         FillBestScoreArrayFromGameData();
+        Debugging.instance.InfoLog("BestScoreManager.Start completed");
     }
 
 
@@ -83,4 +91,5 @@ public class BestScoreManager : MonoBehaviour
             GameDataManager.instance.saveData.bestScoreArray[i] = bestScoreArray[i];
         }
     }
+
 }

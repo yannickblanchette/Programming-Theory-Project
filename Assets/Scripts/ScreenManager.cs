@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UtilityScripts;
 
 public class ScreenManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class ScreenManager : MonoBehaviour
     void Start()
     {
         AddEventListeners();
+        Debugging.instance.InfoLog("ScreenManager.Start completed");
     }
 
     // Update is called once per frame

@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UtilityScripts;
 
 public class GameScreenManager : MonoBehaviour
 {
@@ -9,27 +10,25 @@ public class GameScreenManager : MonoBehaviour
 
     private int playerScore;
 
-    private const string bestScoreTextBase = "Best Score: {name}: {score}";
-    private const string scoreTextBase = "Score: {name}: {score}";
-
 
     private void Awake()
     {
         InitiliazeLocalVariables();
-        UpdateScoreText();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         UpdateBestScoreText();
+        UpdateScoreText();
+        Debugging.instance.InfoLog("GameScreenManager.Start completed");
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
@@ -41,7 +40,17 @@ public class GameScreenManager : MonoBehaviour
 
     private void UpdateBestScoreText()
     {
-        bestScoreText.text = $"Best Score: Yannick: 9";
+        //The best score is the entry at index 0 of the best score array
+        BestScoreManager.BestScoreEntry entry = BestScoreManager.instance.bestScoreArray[0];
+        string name = entry.name;
+        int bestScore = entry.score;
+
+        if (string.IsNullOrEmpty(name))
+        {
+            name = "no one yet";
+            bestScore = 0;
+        }
+        bestScoreText.text = $"Best Score: {name}: {bestScore}";
     }
 
 
