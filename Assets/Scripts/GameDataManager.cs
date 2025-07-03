@@ -35,20 +35,6 @@ public class GameDataManager : MonoBehaviour
     }
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     private void LoadGameData()
     {
         string path = Application.persistentDataPath + "/savefile.json";
@@ -85,7 +71,7 @@ public class GameDataManager : MonoBehaviour
         for (int i = 0; i < GameManager.bestScoreArrayLength; i++)
         {
             BestScoreEntry entry = new BestScoreEntry();
-            entry.name = GameManager.emptyName;
+            entry.name = string.Empty;
             entry.score = GameManager.invalidScore;
             saveData.bestScoreArray[i] = entry;
         }

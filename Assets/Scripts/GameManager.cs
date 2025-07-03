@@ -1,5 +1,7 @@
 using UnityEngine;
 using UtilityScripts;
+using TMPro;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -30,8 +32,10 @@ public class GameManager : MonoBehaviour
     }
 
     public const int bestScoreArrayLength = 5;
-    public const string emptyName = "";
     public const int invalidScore = -1;
+
+
+
 
 
     [System.Serializable]
@@ -40,13 +44,23 @@ public class GameManager : MonoBehaviour
         public string name { get; set; }
         public int score { get; set; }
     }
-
-
-
     public static GameManager instance { get; private set; }
-
     public BestScoreEntry[] bestScoreArray { get; private set; }
+   
+    
+    // ENCAPSULATION
+    public string playerName
+    {
+        get { return m_playerName; }
+        set 
+        { 
+            if (!string.IsNullOrEmpty(value))
+                m_playerName = value; 
+        }
+    }
 
+
+    private string m_playerName;
 
     private void Awake()
     {
@@ -56,7 +70,6 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
         InitializeLocalVariables();
-
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -67,16 +80,10 @@ public class GameManager : MonoBehaviour
         GameStateManager.instance.ProcessEvent(GameManager.GameEvents.initCompleted);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     private void InitializeLocalVariables()
     {
-
+        m_playerName = string.Empty;
     }
 
 
@@ -94,7 +101,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void HandleStartButton()
     {
-        GameStateManager.instance.ProcessEvent(GameManager.GameEvents.StartPressed);
+        //Start the game only if the player name is not empty, otherwise stay on the Title Screen
+        if (!string.IsNullOrWhiteSpace(playerName))
+        {
+            GameStateManager.instance.ProcessEvent(GameManager.GameEvents.StartPressed);
+        }       
     }
 
 
@@ -126,4 +137,7 @@ public class GameManager : MonoBehaviour
             bestScoreArray[i] = entry;
         }
     }
+
+
+
 }
