@@ -8,6 +8,7 @@ public class ScreenManager : MonoBehaviour
 
     public const int sceneNumberTitleScreen = 0;
     public const int sceneNumberGameScreen = 1;
+    public const int sceneNumberGameOverScreen = 2;
 
     private void Awake()
     {
@@ -50,9 +51,16 @@ public class ScreenManager : MonoBehaviour
     }
 
 
+    public void LoadGameOverScreen()
+    {
+        SceneManager.LoadScene(sceneNumberGameOverScreen);
+    }
+
+
     private void AddEventListeners()
     {
         GameStateManager.instance.AddEventListener(GameManager.GameStates.OnTitleScreen, GameManager.GameEvents.StartPressed, HandleOnTitleScreenStartPressed);
+        GameStateManager.instance.AddEventListener(GameManager.GameStates.InProgress, GameManager.GameEvents.GameOver, HandleInProgressGameOverEvent);
     }
 
 
@@ -62,5 +70,9 @@ public class ScreenManager : MonoBehaviour
     }
 
 
+    private void HandleInProgressGameOverEvent(int fromState, int appliedEvent, int toState)
+    {
+        LoadGameOverScreen();
+    }
 
 }
