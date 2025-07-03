@@ -5,17 +5,9 @@ public class GameDataManager : MonoBehaviour
 {
 
     [System.Serializable]
-    public class BestScoreEntry
-    {
-        public string name;
-        public int score;
-    }
-
-
-    [System.Serializable]
     public class SaveData
     {
-        public BestScoreEntry[] bestScoreArray;
+        public BestScoreManager.BestScoreEntry[] bestScoreArray;
     }
 
 
@@ -67,10 +59,10 @@ public class GameDataManager : MonoBehaviour
 
     private void InitializeSaveData()
     {
-        saveData.bestScoreArray = new BestScoreEntry[GameManager.bestScoreArrayLength];
-        for (int i = 0; i < GameManager.bestScoreArrayLength; i++)
+        saveData.bestScoreArray = new BestScoreManager.BestScoreEntry[BestScoreManager.bestScoreArrayLength];
+        for (int i = 0; i < BestScoreManager.bestScoreArrayLength; i++)
         {
-            BestScoreEntry entry = new BestScoreEntry();
+            BestScoreManager.BestScoreEntry entry = new BestScoreManager.BestScoreEntry();
             entry.name = string.Empty;
             entry.score = GameManager.invalidScore;
             saveData.bestScoreArray[i] = entry;

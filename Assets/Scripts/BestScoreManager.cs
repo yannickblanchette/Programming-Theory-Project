@@ -15,11 +15,16 @@ public class BestScoreManager : MonoBehaviour
     public const int bestScoreArrayLength = 5;
     public BestScoreEntry[] bestScoreArray { get; private set; }
 
+
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        FillBestScoreArray();
+        FillBestScoreArrayFromGameData();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -50,12 +55,13 @@ public class BestScoreManager : MonoBehaviour
                 //Store the score at the current index
                 bestScoreArray[i].score = score;
                 bestScoreArray[i].name = name;
+                FillGameDataFromBestScoreArray();
             }
         }
     }
 
 
-    private void FillBestScoreArray()
+    private void FillBestScoreArrayFromGameData()
     {
         bestScoreArray = new BestScoreEntry[bestScoreArrayLength];
         for (int i = 0; i < bestScoreArrayLength; i++)
@@ -65,6 +71,16 @@ public class BestScoreManager : MonoBehaviour
             entry.name = GameDataManager.instance.saveData.bestScoreArray[i].name;
             entry.score = GameDataManager.instance.saveData.bestScoreArray[i].score;
             bestScoreArray[i] = entry;
+        }
+    }
+
+
+    private void FillGameDataFromBestScoreArray()
+    {
+        bestScoreArray = new BestScoreEntry[bestScoreArrayLength];
+        for (int i = 0; i < bestScoreArrayLength; i++)
+        {
+            GameDataManager.instance.saveData.bestScoreArray[i] = bestScoreArray[i];
         }
     }
 }

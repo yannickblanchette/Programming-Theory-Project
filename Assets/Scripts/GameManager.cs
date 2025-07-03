@@ -66,7 +66,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         TurnOnAllDebugging();
-
         GameStateManager.instance.ProcessEvent(GameManager.GameEvents.initCompleted);
     }
 
