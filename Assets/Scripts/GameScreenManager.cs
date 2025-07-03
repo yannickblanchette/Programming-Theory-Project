@@ -7,6 +7,7 @@ public class GameScreenManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI bestScoreText;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI instructionsText;
 
     private int playerScore;
 
@@ -28,7 +29,16 @@ public class GameScreenManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GameManager.GameStates gameState = GameStateManager.instance.currentGameState;
 
+        switch (gameState)
+        {
+            case GameManager.GameStates.WaitingToPlay:
+                HandleWaitingToPlay();
+                break;
+            default: 
+                break;
+        }
     }
 
 
@@ -64,5 +74,14 @@ public class GameScreenManager : MonoBehaviour
     {
         playerScore += score;
         UpdateScoreText();
+    }
+
+
+    private void HandleWaitingToPlay()
+    {
+        if (KeyboardManager.instance.IsSpacebarPressed())
+        {
+            GameStateManager.instance.ProcessEvent(GameManager.GameEvents.PlayPressed);
+        }
     }
 }
