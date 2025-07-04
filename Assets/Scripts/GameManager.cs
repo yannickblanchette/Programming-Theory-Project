@@ -139,7 +139,9 @@ public class GameManager : MonoBehaviour
         else
         {
             toDisplay = $"Best score: {entry.name}: {entry.score}";
-        }            
+        }
+
+        bestScoreText.text = toDisplay;
     }
 
 
