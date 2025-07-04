@@ -19,10 +19,15 @@ public class BestScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null)
         {
-            instance = this;
+            Destroy(gameObject);
+            return;
         }
+        // end of new code
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
 

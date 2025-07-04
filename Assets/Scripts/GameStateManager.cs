@@ -19,10 +19,14 @@ public class GameStateManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null)
         {
-            instance = this;
+            Destroy(gameObject);
+            return;
         }
+        // end of new code
+
+        instance = this;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -55,18 +59,18 @@ public class GameStateManager : MonoBehaviour
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.WaitingToPlay), (int)GameManager.GameEvents.PlayPressed, (int)GameManager.GameStates.InProgress, this.HandleWaitingToPlayToInProgressTransition));
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.InProgress), (int)GameManager.GameEvents.GameOver, (int)GameManager.GameStates.GameOver, this.HandleInProgressToGameOverTransition));
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.GameOver), (int)GameManager.GameEvents.RestartPressed, (int)GameManager.GameStates.WaitingToPlay, this.HandleOnBestScoreScreenToWaitingToPlayTransition));
-        gameFSM.InsertTransition(new(((int)GameManager.GameStates.GameOver), (int)GameManager.GameEvents.BackToTitlePressed, (int)GameManager.GameStates.OnTitleScreen, this.HandleOnBestScoreScreenToOnTitleScreenTransition));
+        gameFSM.InsertTransition(new(((int)GameManager.GameStates.GameOver), (int)GameManager.GameEvents.BackToTitlePressed, (int)GameManager.GameStates.init, this.HandleOnBestScoreScreenToInitTransition));
         gameFSM.SetInitialState((int)GameManager.GameStates.init);
     }
 
 
     private void InitializeEventListeners()
     {
-        eventListeners = new List<FSMTransition.EventHandler>[Enum.GetNames(typeof(GameManager.GameStates)).Length, Enum.GetNames(typeof(GameManager.GameStates)).Length];
+        eventListeners = new List<FSMTransition.EventHandler>[Enum.GetNames(typeof(GameManager.GameStates)).Length, Enum.GetNames(typeof(GameManager.GameEvents)).Length];
         //initialize array with HandleInvalidEvent
         for (int outer = 0; outer < Enum.GetNames(typeof(GameManager.GameStates)).Length; outer++)
         {
-            for (int inner = 0; inner < Enum.GetNames(typeof(GameManager.GameStates)).Length; inner++)
+            for (int inner = 0; inner < Enum.GetNames(typeof(GameManager.GameEvents)).Length; inner++)
             {
                 eventListeners[outer, inner] = new List<FSMTransition.EventHandler>();
             }
@@ -162,7 +166,7 @@ public class GameStateManager : MonoBehaviour
     }
 
 
-    public void HandleOnBestScoreScreenToOnTitleScreenTransition(int fromState, int appliedEvent, int toState)
+    public void HandleOnBestScoreScreenToInitTransition(int fromState, int appliedEvent, int toState)
     {
         Debugging.instance.InfoLog("GameStateManager.HandleOnBestScoreScreenToOnTitleScreenTransition ");
         ExecuteEventHandler(fromState, appliedEvent, toState);

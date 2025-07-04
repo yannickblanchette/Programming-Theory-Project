@@ -12,21 +12,21 @@ namespace UtilityScripts
         private bool _warningLoggingEnabled;
         private bool _errorLoggingEnabled;
 
-        //[SerializeField] private LoggerUnity logger;
-        private Guid guid;
-
 
         void Awake()
         {
-            if (instance == null)
+            if (instance != null)
             {
-                instance = this;
-                this._infoLoggingEnabled = false;
-                this._debugLoggingEnabled = false;
-                this._warningLoggingEnabled = false;
-                this._errorLoggingEnabled = false;
-                this.guid = Guid.NewGuid();
+                Destroy(gameObject);
+                return;
             }
+            // end of new code
+
+            instance = this;
+            this._infoLoggingEnabled = false;
+            this._debugLoggingEnabled = false;
+            this._warningLoggingEnabled = false;
+            this._errorLoggingEnabled = false;
         }
 
 

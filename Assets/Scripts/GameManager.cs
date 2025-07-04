@@ -63,10 +63,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null)
         {
-            instance = this;
+            Destroy(gameObject);
+            return;
         }
+        // end of new code
+
+        instance = this;
         DontDestroyOnLoad(gameObject);
         InitializeLocalVariables();
     }
@@ -103,7 +107,7 @@ public class GameManager : MonoBehaviour
     public void HandleStartButton()
     {
         //Start the game only if the player name is not empty, otherwise stay on the Title Screen
-        if (!string.IsNullOrWhiteSpace(playerName))
+        if (!string.IsNullOrWhiteSpace(this.m_playerName))
         {
             GameStateManager.instance.ProcessEvent(GameManager.GameEvents.StartPressed);
         }       

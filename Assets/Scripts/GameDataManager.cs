@@ -18,10 +18,14 @@ public class GameDataManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null)
         {
-            instance = this;
+            Destroy(gameObject);
+            return;
         }
+        // end of new code
+
+        instance = this;
         saveData = new SaveData();
         LoadGameData();
     }

@@ -8,17 +8,19 @@ namespace UtilityScripts
     {
         public static LoggerUnity instance { get; private set; }
         private bool _testModeEnabled;
-        Guid guid;
         
 
         void Awake()
         {
-            if (instance == null)
+            if (instance != null)
             {
-                instance = this;
-                _testModeEnabled = false;
-                guid = Guid.NewGuid();
+                Destroy(gameObject);
+                return;
             }
+            // end of new code
+
+            instance = this;
+            _testModeEnabled = false;
         }
 
 

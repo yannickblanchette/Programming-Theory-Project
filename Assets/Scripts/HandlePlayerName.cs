@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UtilityScripts;
 
 public class HandlePlayerName : MonoBehaviour
 {
@@ -8,8 +9,9 @@ public class HandlePlayerName : MonoBehaviour
     //Once the player entered or modified the name in the input field then save it in the Game Manager
     public void HandlePlayerNameEdited()
     {
-        if (playerNameField.text != string.Empty)
+        if (!string.IsNullOrEmpty(playerNameField.text))
         {
+            Debugging.instance.DebugLog(playerNameField.text);
             GameManager.instance.playerName = playerNameField.text;
         }        
     }
