@@ -48,9 +48,19 @@ public class GameManager : MonoBehaviour
                 m_playerName = value; 
         }
     }
-
+    public int playerScore
+    {
+        get { return m_playerScore; }
+        set 
+        { 
+            if (value >= 0)
+               m_playerScore = value;
+        }
+    }
 
     private string m_playerName;
+    private int m_playerScore;
+
 
     private void Awake()
     {
@@ -74,6 +84,7 @@ public class GameManager : MonoBehaviour
     private void InitializeLocalVariables()
     {
         m_playerName = string.Empty;
+        m_playerScore = 0;
     }
 
 

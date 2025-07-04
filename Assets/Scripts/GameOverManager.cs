@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -7,7 +8,13 @@ public class GameOverManager : MonoBehaviour
     public static GameOverManager instance {  get; private set; }
     
     [SerializeField] private TextMeshProUGUI bestScoreListText;
+    [SerializeField] private TextMeshProUGUI gameOverText;
+    [SerializeField] private GameObject gameOverObject;
+    [SerializeField] private GameObject bestScoreListObject;
+    [SerializeField] private GameObject restartObject;
+    [SerializeField] private GameObject backToMainObject;
 
+    public const float gameOverTimeout = 2f;
 
     private void Awake()
     {
@@ -21,7 +28,8 @@ public class GameOverManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        DisplayBestScoreList();
+        DisplayGameOverText();
+        StartCoroutine(GameOverTimer());
     }
 
 
@@ -66,4 +74,34 @@ public class GameOverManager : MonoBehaviour
         GameStateManager.instance.ProcessEvent(GameManager.GameEvents.BackToTitlePressed);
     }
 
+
+    private void DisableGameOver()
+    {
+        gameOverObject.SetActive(false);
+    }
+
+
+    private void EnableBestScore()
+    {
+        bestScoreListObject.SetActive(true);
+        restartObject.SetActive(true);
+        backToMainObject.SetActive(true);
+    }
+
+
+    private IEnumerator GameOverTimer()
+    {
+        yield return new WaitForSeconds(gameOverTimeout);
+        DisableGameOver();
+        EnableBestScore();
+        DisplayBestScoreList();
+    }
+
+
+    private void DisplayGameOverText()
+    {
+        string toDisplay = "GAME OVER" + Environment.NewLine;
+        toDisplay += $"YOUR SCORE: {GameManager.instance.playerScore}";
+        gameOverText.text = toDisplay;
+    }
 }
