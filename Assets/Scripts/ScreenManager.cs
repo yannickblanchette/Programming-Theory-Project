@@ -61,6 +61,8 @@ public class ScreenManager : MonoBehaviour
     {
         GameStateManager.instance.AddEventListener(GameManager.GameStates.OnTitleScreen, GameManager.GameEvents.StartPressed, HandleOnTitleScreenStartPressed);
         GameStateManager.instance.AddEventListener(GameManager.GameStates.InProgress, GameManager.GameEvents.GameOver, HandleInProgressGameOverEvent);
+        GameStateManager.instance.AddEventListener(GameManager.GameStates.GameOver, GameManager.GameEvents.RestartPressed, HandleGameOverRestartPressedEvent);
+        GameStateManager.instance.AddEventListener(GameManager.GameStates.GameOver, GameManager.GameEvents.BackToTitlePressed, HandleGameOverBackToTitlePressedEvent);
     }
 
 
@@ -76,5 +78,14 @@ public class ScreenManager : MonoBehaviour
     }
 
 
-    
+    private void HandleGameOverRestartPressedEvent(int fromState, int appliedEvent, int toState)
+    {
+        LoadGameScreen();
+    }
+
+
+    private void HandleGameOverBackToTitlePressedEvent(int fromState, int appliedEvent, int toState)
+    {
+        LoadTitleScreen();
+    }
 }
