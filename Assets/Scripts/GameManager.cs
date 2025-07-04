@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     public const int invalidScore = -1;
 
+    [SerializeField] private TextMeshProUGUI bestScoreText;
 
     public static GameManager instance { get; private set; }
 
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         TurnOnAllDebugging();
+        DisplayBestScore();
         GameStateManager.instance.ProcessEvent(GameManager.GameEvents.initCompleted);
         Debugging.instance.InfoLog("GameManager.Start completed");
     }
@@ -126,7 +128,19 @@ public class GameManager : MonoBehaviour
     }
 
 
-
+    public void DisplayBestScore()
+    {
+        string toDisplay;
+        BestScoreManager.BestScoreEntry entry = BestScoreManager.instance.bestScoreArray[0];
+        if (string.IsNullOrEmpty(entry.name) || entry.score < 0)
+        {
+            toDisplay = $"Best score: none yet";
+        }
+        else
+        {
+            toDisplay = $"Best score: {entry.name}: {entry.score}";
+        }            
+    }
 
 
 
