@@ -54,4 +54,16 @@ public class GameOverManager : MonoBehaviour
         bestScoreListText.text = toDisplay;
     }
 
+
+    public void HandleRestartButtonClicked()
+    {
+        GameStateManager.instance.ProcessEvent(GameManager.GameEvents.RestartPressed);
+    }
+
+
+    public void HandleBackToMainButtonClicked()
+    {
+        GameStateManager.instance.ProcessEvent(GameManager.GameEvents.BackToTitlePressed);
+    }
+
 }
