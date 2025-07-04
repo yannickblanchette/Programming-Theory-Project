@@ -1413,7 +1413,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f86dffa2d367e6d4981e4e2c4b41117d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bestScoreListText: {fileID: 0}
+  bestScoreListText: {fileID: 850813645}
+  gameOverText: {fileID: 1108946164}
+  gameOverObject: {fileID: 1108946162}
+  bestScoreListObject: {fileID: 850813643}
+  restartObject: {fileID: 220724043}
+  backToMainObject: {fileID: 1429890584}
 --- !u!4 &1432325018
 Transform:
   m_ObjectHideFlags: 0
