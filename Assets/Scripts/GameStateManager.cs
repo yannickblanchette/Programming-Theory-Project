@@ -54,9 +54,8 @@ public class GameStateManager : MonoBehaviour
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.OnTitleScreen), (int)GameManager.GameEvents.ExitPressed, (int)GameManager.GameStates.Exit, this.HandleOnTitleScreenToExitTransition));
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.WaitingToPlay), (int)GameManager.GameEvents.PlayPressed, (int)GameManager.GameStates.InProgress, this.HandleWaitingToPlayToInProgressTransition));
         gameFSM.InsertTransition(new(((int)GameManager.GameStates.InProgress), (int)GameManager.GameEvents.GameOver, (int)GameManager.GameStates.GameOver, this.HandleInProgressToGameOverTransition));
-        gameFSM.InsertTransition(new(((int)GameManager.GameStates.GameOver), (int)GameManager.GameEvents.GameOverTimeout, (int)GameManager.GameStates.OnBestScoreScreen, this.HandleGameOverToOnBestScoreScreenTransition));
-        gameFSM.InsertTransition(new(((int)GameManager.GameStates.OnBestScoreScreen), (int)GameManager.GameEvents.RestartPressed, (int)GameManager.GameStates.WaitingToPlay, this.HandleOnBestScoreScreenToWaitingToPlayTransition));
-        gameFSM.InsertTransition(new(((int)GameManager.GameStates.OnBestScoreScreen), (int)GameManager.GameEvents.BackToTitlePressed, (int)GameManager.GameStates.OnTitleScreen, this.HandleOnBestScoreScreenToOnTitleScreenTransition));
+        gameFSM.InsertTransition(new(((int)GameManager.GameStates.GameOver), (int)GameManager.GameEvents.RestartPressed, (int)GameManager.GameStates.WaitingToPlay, this.HandleOnBestScoreScreenToWaitingToPlayTransition));
+        gameFSM.InsertTransition(new(((int)GameManager.GameStates.GameOver), (int)GameManager.GameEvents.BackToTitlePressed, (int)GameManager.GameStates.OnTitleScreen, this.HandleOnBestScoreScreenToOnTitleScreenTransition));
         gameFSM.SetInitialState((int)GameManager.GameStates.init);
     }
 
@@ -150,13 +149,6 @@ public class GameStateManager : MonoBehaviour
 
 
     public void HandleInProgressToGameOverTransition(int fromState, int appliedEvent, int toState)
-    {
-        Debugging.instance.InfoLog("GameStateManager.HandleInProgressToGameOverTransition ");
-        ExecuteEventHandler(fromState, appliedEvent, toState);
-    }
-
-
-    public void HandleGameOverToOnBestScoreScreenTransition(int fromState, int appliedEvent, int toState)
     {
         Debugging.instance.InfoLog("GameStateManager.HandleInProgressToGameOverTransition ");
         ExecuteEventHandler(fromState, appliedEvent, toState);

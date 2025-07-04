@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
         WaitingToPlay,
         InProgress,
         GameOver,
-        OnBestScoreScreen,
         Exit
     }
 
@@ -26,7 +25,6 @@ public class GameManager : MonoBehaviour
         ExitPressed,
         PlayPressed,
         GameOver,
-        GameOverTimeout,
         RestartPressed,
         BackToTitlePressed
     }
