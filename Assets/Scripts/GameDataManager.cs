@@ -5,15 +5,23 @@ namespace GameLogic
 {
     public class GameDataManager : MonoBehaviour
     {
+        [System.Serializable]
+        public class BestScoreEntry
+        {
+            public string name;
+            public int score;
+        }
+
+
 
         [System.Serializable]
         public class SaveData
         {
-            public BestScoreManager.BestScoreEntry[] bestScoreArray;
+            public BestScoreEntry[] bestScoreArray;
         }
 
 
-        public SaveData saveData { get; private set; }
+        public SaveData saveData;
 
         public static GameDataManager instance { get; private set; }
 
@@ -69,10 +77,10 @@ namespace GameLogic
 
         private void InitializeSaveData()
         {
-            saveData.bestScoreArray = new BestScoreManager.BestScoreEntry[BestScoreManager.bestScoreArrayLength];
+            saveData.bestScoreArray = new BestScoreEntry[BestScoreManager.bestScoreArrayLength];
             for (int i = 0; i < BestScoreManager.bestScoreArrayLength; i++)
             {
-                BestScoreManager.BestScoreEntry entry = new BestScoreManager.BestScoreEntry();
+                BestScoreEntry entry = new BestScoreEntry();
                 entry.name = string.Empty;
                 entry.score = GameManager.invalidScore;
                 saveData.bestScoreArray[i] = entry;
@@ -86,7 +94,7 @@ namespace GameLogic
             {
                 if (saveData.bestScoreArray[i] == null)
                 {
-                    BestScoreManager.BestScoreEntry entry = new BestScoreManager.BestScoreEntry();
+                    BestScoreEntry entry = new BestScoreEntry();
                     entry.name = string.Empty;
                     entry.score = GameManager.invalidScore;
                     saveData.bestScoreArray[i] = entry;

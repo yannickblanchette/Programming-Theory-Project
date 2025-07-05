@@ -84,6 +84,7 @@ namespace GameLogic
                     bestScoreArray[i].score = score;
                     bestScoreArray[i].name = name;
                     FillGameDataFromBestScoreArray();
+                    break;
                 }
             }
         }
@@ -105,10 +106,10 @@ namespace GameLogic
 
         private void FillGameDataFromBestScoreArray()
         {
-            bestScoreArray = new BestScoreEntry[bestScoreArrayLength];
             for (int i = 0; i < bestScoreArrayLength; i++)
             {
-                GameDataManager.instance.saveData.bestScoreArray[i] = bestScoreArray[i];
+                GameDataManager.instance.saveData.bestScoreArray[i].name = bestScoreArray[i].name;
+                GameDataManager.instance.saveData.bestScoreArray[i].score = bestScoreArray[i].score;
             }
         }
 

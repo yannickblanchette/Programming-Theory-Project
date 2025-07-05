@@ -52,7 +52,7 @@ namespace GameLogic
                 BestScoreManager.BestScoreEntry entry = BestScoreManager.instance.bestScoreArray[i];
                 if (!string.IsNullOrEmpty(entry.name) && entry.score >= 0)
                 {
-                    toDisplay += $"{i}: {entry.name} : {entry.score}";
+                    toDisplay += $"{i+1}: {entry.name} : {entry.score}";
                 }
             }
 

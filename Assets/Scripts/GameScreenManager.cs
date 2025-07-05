@@ -110,6 +110,9 @@ namespace GameLogic
                 }
                 else
                 {
+                    int randomScore = Random.Range(1, 100);
+                    GameManager.instance.playerScore = randomScore;
+                    BestScoreManager.instance.CompareScoreWithBestScores(GameManager.instance.playerName, GameManager.instance.playerScore);
                     GameStateManager.instance.ProcessEvent(GameEvents.GameOver);
                 }
             }
