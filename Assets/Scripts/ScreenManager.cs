@@ -66,32 +66,32 @@ namespace GameLogic
 
         private void AddEventListeners()
         {
-            GameStateManager.instance.AddEventListener(GameStates.OnTitleScreen, GameEvents.StartPressed, HandleOnTitleScreenStartPressed);
-            GameStateManager.instance.AddEventListener(GameStates.InProgress, GameEvents.GameOver, HandleInProgressGameOverEvent);
-            GameStateManager.instance.AddEventListener(GameStates.GameOver, GameEvents.RestartPressed, HandleGameOverRestartPressedEvent);
-            GameStateManager.instance.AddEventListener(GameStates.GameOver, GameEvents.BackToTitlePressed, HandleGameOverBackToTitlePressedEvent);
+            GameStateManager.instance.onTitleScreenStartPressedEvent.AddListener(HandleOnTitleScreenStartPressed);
+            GameStateManager.instance.inProgressGameOverEvent.AddListener(HandleInProgressGameOverEvent);
+            GameStateManager.instance.gameOverRestartPressedEvent.AddListener(HandleGameOverRestartPressedEvent);
+            GameStateManager.instance.gameOverBackToTitlePressedEvent.AddListener(HandleGameOverBackToTitlePressedEvent);
         }
 
 
-        private void HandleOnTitleScreenStartPressed(int fromState, int appliedEvent, int toState)
+        private void HandleOnTitleScreenStartPressed()
         {
             LoadGameScreen();
         }
 
 
-        private void HandleInProgressGameOverEvent(int fromState, int appliedEvent, int toState)
+        private void HandleInProgressGameOverEvent()
         {
             LoadGameOverScreen();
         }
 
 
-        private void HandleGameOverRestartPressedEvent(int fromState, int appliedEvent, int toState)
+        private void HandleGameOverRestartPressedEvent()
         {
             LoadGameScreen();
         }
 
 
-        private void HandleGameOverBackToTitlePressedEvent(int fromState, int appliedEvent, int toState)
+        private void HandleGameOverBackToTitlePressedEvent()
         {
             LoadTitleScreen();
         }
