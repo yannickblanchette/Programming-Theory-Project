@@ -110,7 +110,7 @@ namespace UtilityScripts
             {
                 transition.eventHandler(transition.fromState, transition.appliedEvent, transition.toState);
                 this.currentState = transition.toState;
-                debugObject.InfoLog("Transition from: " + transition.fromState.ToString() + " " + transition.appliedEvent.ToString());
+                debugObject.InfoLog("Transition from: " + transition.fromState.ToString() + " event " + transition.appliedEvent.ToString());
             }
             else if (transition == null)
             {

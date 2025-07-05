@@ -1,26 +1,30 @@
 using UnityEngine;
 
-public class KeyboardManager : MonoBehaviour
+
+namespace GameLogic
 {
-    public static KeyboardManager instance {  get; private set; }
-
-
-
-    private void Awake()
+    public class KeyboardManager : MonoBehaviour
     {
-        if (instance != null)
+        public static KeyboardManager instance { get; private set; }
+
+
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
+            if (instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            // end of new code
+
+            instance = this;
         }
-        // end of new code
-
-        instance = this;
-    }
 
 
-    public bool IsSpacebarPressed()
-    {
-        return Input.GetKeyDown(KeyCode.Space);
+        public bool IsSpacebarPressed()
+        {
+            return Input.GetKeyDown(KeyCode.Space);
+        }
     }
 }
+

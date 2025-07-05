@@ -23,10 +23,10 @@ namespace UtilityScripts
             // end of new code
 
             instance = this;
-            this._infoLoggingEnabled = false;
-            this._debugLoggingEnabled = false;
-            this._warningLoggingEnabled = false;
-            this._errorLoggingEnabled = false;
+            this._infoLoggingEnabled = true;
+            this._debugLoggingEnabled = true;
+            this._warningLoggingEnabled = true;
+            this._errorLoggingEnabled = true;
         }
 
 
