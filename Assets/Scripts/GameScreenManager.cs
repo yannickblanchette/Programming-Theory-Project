@@ -15,7 +15,10 @@ namespace GameLogic
         [SerializeField] private TextMeshProUGUI instructionsText;
         [SerializeField] private GameObject instructionsArea;
         [SerializeField] private GameObject player;
-        [SerializeField] private GameObject enemy;
+
+        public const float verticalRange = 3.8f;
+        public const float startPositionX = 8.3f;
+        public const float positionZ = -0.2f;
 
 
         private void Awake()
@@ -133,7 +136,6 @@ namespace GameLogic
         {
             //Enable the player object
             player.SetActive(true);
-            enemy.SetActive(true);
         }
 
     }

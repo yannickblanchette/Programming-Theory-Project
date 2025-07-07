@@ -6,10 +6,7 @@ public class Enemy : MovingBody
     private float m_horizontalSpeed = -5f;
     private float m_verticalSpeed = 0f;
     private int m_scoreIncrement = 3;
-    private int numProjectiles;
-    private float initialPositionX = -7f;
-    private float initialPositionZ = -0.2f;
-    private float verticalInput;
+
 
     public override float horizontalSpeed { get { return m_horizontalSpeed; } }
     public override float verticalSpeed { get { return m_verticalSpeed; } }
