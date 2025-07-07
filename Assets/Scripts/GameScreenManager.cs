@@ -92,37 +92,34 @@ namespace GameLogic
         {
             if (KeyboardManager.instance.IsSpacebarPressed())
             {
-                UpdateIntructionsText();
+                if (instructionsArea.activeSelf)
+                {
+                    instructionsArea.SetActive(false);
+                }
                 GameStateManager.instance.ProcessEvent(GameEvents.PlayPressed);
+                CreateProjectile();
             }
         }
 
 
-        private void UpdateIntructionsText()
-        {
-            instructionsText.text = "GAME IS IN PROGRESS";
-        }
+        //private void UpdateIntructionsText()
+        //{
+        //    instructionsText.text = "GAME IS IN PROGRESS";
+        //}
 
 
         private void HandleInProgressState()
         {
-            if (KeyboardManager.instance.IsSpacebarPressed())
+            if (numProjectiles >= 5)
             {
-                if (instructionsArea.activeSelf)
-                {
-                    instructionsArea.SetActive(false);
-                    CreateProjectile();
-                }
-                else
-                {
-                    if (numProjectiles >= 5)
-                    {
-                        int randomScore = Random.Range(1, 100);
-                        GameManager.instance.playerScore = randomScore;
-                        BestScoreManager.instance.CompareScoreWithBestScores(GameManager.instance.playerName, GameManager.instance.playerScore);
-                        GameStateManager.instance.ProcessEvent(GameEvents.GameOver);
-                    }
-                }
+                int randomScore = Random.Range(1, 100);
+                GameManager.instance.playerScore = randomScore;
+                BestScoreManager.instance.CompareScoreWithBestScores(GameManager.instance.playerName, GameManager.instance.playerScore);
+                GameStateManager.instance.ProcessEvent(GameEvents.GameOver);
+            }
+            else if (KeyboardManager.instance.IsSpacebarPressed())
+            {
+                CreateProjectile();
             }
         }
 
