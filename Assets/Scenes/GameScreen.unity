@@ -326,7 +326,7 @@ MonoBehaviour:
   scoreText: {fileID: 1999147002}
   instructionsText: {fileID: 999530479}
   instructionsArea: {fileID: 1094646523}
-  projectile: {fileID: 7803102531995169531, guid: e6c223b3e131cce49bd53176c3dcfd80, type: 3}
+  player: {fileID: 1446500773}
 --- !u!4 &550970970
 Transform:
   m_ObjectHideFlags: 0
@@ -1214,13 +1214,14 @@ GameObject:
   - component: {fileID: 1446500776}
   - component: {fileID: 1446500775}
   - component: {fileID: 1446500774}
+  - component: {fileID: 1446500778}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1446500774
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1310,6 +1311,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1446500778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446500773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67cb51b81e1a0074e98a69e47064da03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 7803102531995169531, guid: e6c223b3e131cce49bd53176c3dcfd80, type: 3}
 --- !u!1 &1999147000
 GameObject:
   m_ObjectHideFlags: 0

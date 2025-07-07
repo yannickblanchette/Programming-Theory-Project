@@ -9,10 +9,13 @@ public abstract class MovingBody : MonoBehaviour
     abstract public int scoreIncrement { get; }
 
 
-    protected void Update()
+    protected virtual void Update()
     {
-        MoveHorizontally();
-        MoveVertically();        
+        if (GameStateManager.instance.currentGameState == GameStates.InProgress)
+        {
+            MoveHorizontally();
+            MoveVertically();
+        }       
     }
 
 
@@ -20,6 +23,7 @@ public abstract class MovingBody : MonoBehaviour
     {
         transform.Translate(Vector3.right * horizontalSpeed * Time.deltaTime);
     }
+
 
     protected virtual void MoveVertically()
     {

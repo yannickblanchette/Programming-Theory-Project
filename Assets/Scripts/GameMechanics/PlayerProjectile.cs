@@ -6,7 +6,7 @@ namespace GameLogic
 {
     public class PlayerProjectile : MovingBody
     {
-        private float m_horizontalSpeed = 10f;
+        private float m_horizontalSpeed = 20f;
         private float m_verticalSpeed = 0f;
         private int m_scoreIncrement = 0;
 

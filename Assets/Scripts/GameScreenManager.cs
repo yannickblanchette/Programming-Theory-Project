@@ -12,11 +12,10 @@ namespace GameLogic
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI instructionsText;
         [SerializeField] private GameObject instructionsArea;
-        [SerializeField] private GameObject projectile;
-        
+        [SerializeField] private GameObject player;
+
 
         private int playerScore;
-        private int numProjectiles;
 
 
         private void Awake()
@@ -24,9 +23,11 @@ namespace GameLogic
             InitiliazeLocalVariables();
         }
 
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            AddAllListeners();
             UpdateBestScoreText();
             UpdateScoreText();
             Debugging.instance.InfoLog("GameScreenManager.Start completed");
@@ -55,7 +56,6 @@ namespace GameLogic
         private void InitiliazeLocalVariables()
         {
             playerScore = 0;
-            numProjectiles = 0;
         }
 
 
@@ -97,39 +97,37 @@ namespace GameLogic
                     instructionsArea.SetActive(false);
                 }
                 GameStateManager.instance.ProcessEvent(GameEvents.PlayPressed);
-                CreateProjectile();
             }
         }
-
-
-        //private void UpdateIntructionsText()
-        //{
-        //    instructionsText.text = "GAME IS IN PROGRESS";
-        //}
 
 
         private void HandleInProgressState()
         {
-            if (numProjectiles >= 5)
-            {
-                int randomScore = Random.Range(1, 100);
-                GameManager.instance.playerScore = randomScore;
-                BestScoreManager.instance.CompareScoreWithBestScores(GameManager.instance.playerName, GameManager.instance.playerScore);
-                GameStateManager.instance.ProcessEvent(GameEvents.GameOver);
-            }
-            else if (KeyboardManager.instance.IsSpacebarPressed())
-            {
-                CreateProjectile();
-            }
+
+        }
+
+
+        public static void HandleGameOver()
+        {
+            int randomScore = Random.Range(1, 100);
+            GameManager.instance.playerScore = randomScore;
+            BestScoreManager.instance.CompareScoreWithBestScores(GameManager.instance.playerName, GameManager.instance.playerScore);
+            GameStateManager.instance.ProcessEvent(GameEvents.GameOver);
         }
 
     
-        private void CreateProjectile()
+        private void AddAllListeners()
         {
-            Instantiate(projectile, projectile.transform.position, projectile.transform.rotation);
-            numProjectiles++;
+            GameStateManager.instance.waitingToPlayPlayPressedEvent.AddListener(HandleWaitingToPlayPlayPressedEvent);
         }
-    
+
+
+        private void HandleWaitingToPlayPlayPressedEvent()
+        {
+            //Enable the player object
+            player.SetActive(true);
+        }
+
     }
 
 }
