@@ -1,10 +1,12 @@
 using GameLogic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class MovingBody : MonoBehaviour
 {
     abstract public float horizontalSpeed { get; }
     abstract public float verticalSpeed {  get; }
+    abstract public int scoreIncrement { get; }
 
 
     protected void Update()
@@ -25,12 +27,12 @@ public abstract class MovingBody : MonoBehaviour
     }
 
 
-    protected void OnTriggerExit(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         //Check if the projectile hit an enemy or the player
         if (other.CompareTag("Enemy"))
         {
-            //GameManager.instance.playerScore += 
+            GameManager.instance.playerScore += other.GetComponent<MovingBody>().scoreIncrement;
         }
         else if (other.CompareTag("Player"))
         {
