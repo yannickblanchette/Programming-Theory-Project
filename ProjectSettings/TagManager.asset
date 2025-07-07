@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - BestScoreText
+  - Enemy
   layers:
   - Default
   - TransparentFX

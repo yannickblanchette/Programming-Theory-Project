@@ -12,8 +12,11 @@ namespace GameLogic
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI instructionsText;
         [SerializeField] private GameObject instructionsArea;
+        [SerializeField] private GameObject projectile;
+        
 
         private int playerScore;
+        private int numProjectiles;
 
 
         private void Awake()
@@ -52,6 +55,7 @@ namespace GameLogic
         private void InitiliazeLocalVariables()
         {
             playerScore = 0;
+            numProjectiles = 0;
         }
 
 
@@ -107,17 +111,28 @@ namespace GameLogic
                 if (instructionsArea.activeSelf)
                 {
                     instructionsArea.SetActive(false);
+                    CreateProjectile();
                 }
                 else
                 {
-                    int randomScore = Random.Range(1, 100);
-                    GameManager.instance.playerScore = randomScore;
-                    BestScoreManager.instance.CompareScoreWithBestScores(GameManager.instance.playerName, GameManager.instance.playerScore);
-                    GameStateManager.instance.ProcessEvent(GameEvents.GameOver);
+                    if (numProjectiles >= 5)
+                    {
+                        int randomScore = Random.Range(1, 100);
+                        GameManager.instance.playerScore = randomScore;
+                        BestScoreManager.instance.CompareScoreWithBestScores(GameManager.instance.playerName, GameManager.instance.playerScore);
+                        GameStateManager.instance.ProcessEvent(GameEvents.GameOver);
+                    }
                 }
             }
         }
 
+    
+        private void CreateProjectile()
+        {
+            Instantiate(projectile, projectile.transform.position, projectile.transform.rotation);
+            numProjectiles++;
+        }
+    
     }
 
 }
