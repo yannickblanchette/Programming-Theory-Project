@@ -1,6 +1,8 @@
 using GameLogic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
+using UtilityScripts;
 
 public abstract class MovingBody : MonoBehaviour
 {
@@ -31,19 +33,9 @@ public abstract class MovingBody : MonoBehaviour
     }
 
 
-    protected void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        //Check if the projectile hit an enemy or the player
-        if (other.CompareTag("Enemy"))
-        {
-            GameManager.instance.playerScore += other.GetComponent<MovingBody>().scoreIncrement;
-        }
-        else if (other.CompareTag("Player"))
-        {
-            //Player has been hit so it is Game Over
-            GameStateManager.instance.ProcessEvent(GameEvents.GameOver);
-        }
-        //Destroy the object that has been hit, as well as our own object
+        UtilityScripts.Debugging.instance.DebugLog("OnTriggerEnter own object " + gameObject.name + " other " + other.name);
         Destroy(gameObject);
     }
 }

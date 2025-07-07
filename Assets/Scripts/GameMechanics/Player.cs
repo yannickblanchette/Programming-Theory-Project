@@ -63,6 +63,16 @@ namespace GameLogic
                 CreateProjectile();
             }
         }
+
+
+        protected override void OnTriggerEnter(Collider other)
+        {
+            //Player has been hit so it is Game Over
+            GameStateManager.instance.ProcessEvent(GameEvents.GameOver);
+            base.OnTriggerEnter(other);
+        }
+
+
     }
 }
 

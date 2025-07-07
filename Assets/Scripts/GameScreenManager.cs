@@ -8,18 +8,26 @@ namespace GameLogic
 {
     public class GameScreenManager : MonoBehaviour
     {
+        public static GameScreenManager instance {  get; private set; }
+        
         [SerializeField] private TextMeshProUGUI bestScoreText;
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI instructionsText;
         [SerializeField] private GameObject instructionsArea;
         [SerializeField] private GameObject player;
-
-
-        private int playerScore;
+        [SerializeField] private GameObject enemy;
 
 
         private void Awake()
         {
+            if (instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            // end of new code
+
+            instance = this;
             InitiliazeLocalVariables();
         }
 
@@ -27,6 +35,7 @@ namespace GameLogic
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            GameManager.instance.playerScore = 0;
             AddAllListeners();
             UpdateBestScoreText();
             UpdateScoreText();
@@ -55,7 +64,7 @@ namespace GameLogic
 
         private void InitiliazeLocalVariables()
         {
-            playerScore = 0;
+
         }
 
 
@@ -77,13 +86,13 @@ namespace GameLogic
 
         private void UpdateScoreText()
         {
-            scoreText.text = $"Score: {GameManager.instance.playerName}: {playerScore}";
+            scoreText.text = $"Score: {GameManager.instance.playerName}: {GameManager.instance.playerScore}";
         }
 
 
         public void IncrementScore(int score)
         {
-            playerScore += score;
+            GameManager.instance.playerScore += score;
             UpdateScoreText();
         }
 
@@ -109,8 +118,6 @@ namespace GameLogic
 
         public static void HandleGameOver()
         {
-            int randomScore = Random.Range(1, 100);
-            GameManager.instance.playerScore = randomScore;
             BestScoreManager.instance.CompareScoreWithBestScores(GameManager.instance.playerName, GameManager.instance.playerScore);
             GameStateManager.instance.ProcessEvent(GameEvents.GameOver);
         }
@@ -126,6 +133,7 @@ namespace GameLogic
         {
             //Enable the player object
             player.SetActive(true);
+            enemy.SetActive(true);
         }
 
     }
