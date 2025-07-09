@@ -32,6 +32,7 @@ namespace GameLogic
         {
             GetVerticalInput();
             transform.Translate(Vector3.up * verticalSpeed * verticalInput * Time.deltaTime);
+            ConstrainPositionY();
         }
 
 
@@ -66,6 +67,22 @@ namespace GameLogic
         }
 
 
+        private void ConstrainPositionY()
+        {
+            //If the position y would be further than the y-range, then modify vertical input to be so that the final position is the limit of y-range
+            if (transform.position.y > GameScreenManager.verticalRange)
+            {
+                Vector3 position = transform.position;
+                position.y = GameScreenManager.verticalRange;
+                transform.position = position;
+            }
+            else if (transform.position.y < -GameScreenManager.verticalRange)
+            {
+                Vector3 position = transform.position;
+                position.y = -GameScreenManager.verticalRange;
+                transform.position = position;
+            }
+        }
     }
 }
 
