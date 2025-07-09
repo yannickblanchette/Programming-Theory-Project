@@ -51,6 +51,7 @@ namespace GameLogic
         }
 
 
+        // ABSTRACTION
         //Once the player entered or modified the name in the input field then save it in the Game Manager
         public void HandlePlayerNameEdited(string text)
         {

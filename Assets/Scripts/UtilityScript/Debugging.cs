@@ -30,6 +30,7 @@ namespace UtilityScripts
         }
 
 
+        // ABSTRACTION
         public bool infoLoggingEnabled => _infoLoggingEnabled;
 
 

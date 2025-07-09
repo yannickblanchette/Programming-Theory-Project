@@ -23,6 +23,8 @@ namespace GameLogic
 
         public SaveData saveData;
 
+
+        // ENCAPSULATION
         public static GameDataManager instance { get; private set; }
 
 
@@ -67,6 +69,7 @@ namespace GameLogic
         }
 
 
+        // ABSTRACTION
         public void SaveGameData()
         {
             string json = JsonUtility.ToJson(saveData, true);

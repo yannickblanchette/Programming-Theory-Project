@@ -7,6 +7,7 @@ namespace GameLogic
 {
     public class ScreenManager : MonoBehaviour
     {
+        // ENCAPSULATION
         public static ScreenManager instance { get; private set; }
 
         public const int sceneNumberTitleScreen = 0;

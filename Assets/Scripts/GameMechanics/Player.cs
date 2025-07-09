@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace GameLogic
 {
+    // INHERITANCE
     public class Player : MovingBody
     {
         [SerializeField] private GameObject projectile;
@@ -13,6 +14,8 @@ namespace GameLogic
         private float initialPositionZ = -0.2f;
         private float verticalInput;
 
+
+        // POLYMORPHISM
         public override float horizontalSpeed { get { return m_horizontalSpeed; } }
         public override float verticalSpeed { get { return m_verticalSpeed; } }
         public override int scoreIncrement { get { return m_scoreIncrement; } }

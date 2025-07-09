@@ -19,7 +19,7 @@ namespace GameLogic
         public UnityEvent gameOverBackToTitlePressedEvent;
 
 
-        // Encapsulation
+        // ENCAPSULATION
         public GameStates currentGameState
         {
             get { return (GameStates)gameFSM.GetCurrentState(); }
@@ -43,7 +43,6 @@ namespace GameLogic
 
 
 
-        // ABSTRACTION
         private void InitializeLocalVariables()
         {
             InitializeGameFSM();

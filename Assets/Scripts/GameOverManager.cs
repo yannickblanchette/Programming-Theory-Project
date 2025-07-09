@@ -38,6 +38,18 @@ namespace GameLogic
 
 
         // ABSTRACTION
+        public void HandleBackToMainButtonClicked()
+        {
+            GameStateManager.instance.ProcessEvent(GameEvents.BackToTitlePressed);
+        }
+
+
+        public void HandleRestartButtonClicked()
+        {
+            GameStateManager.instance.ProcessEvent(GameEvents.RestartPressed);
+        }
+
+
         private void DisplayBestScoreList()
         {
             //First display the title of the table
@@ -57,18 +69,6 @@ namespace GameLogic
             }
 
             bestScoreListText.text = toDisplay;
-        }
-
-
-        public void HandleRestartButtonClicked()
-        {
-            GameStateManager.instance.ProcessEvent(GameEvents.RestartPressed);
-        }
-
-
-        public void HandleBackToMainButtonClicked()
-        {
-            GameStateManager.instance.ProcessEvent(GameEvents.BackToTitlePressed);
         }
 
 

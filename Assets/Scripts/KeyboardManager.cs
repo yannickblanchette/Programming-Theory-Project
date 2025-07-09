@@ -21,6 +21,7 @@ namespace GameLogic
         }
 
 
+        // ABSTRACTION
         public bool IsSpacebarPressed()
         {
             return Input.GetKeyDown(KeyCode.Space);

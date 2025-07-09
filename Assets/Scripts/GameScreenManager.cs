@@ -65,6 +65,21 @@ namespace GameLogic
         }
 
 
+        // ABSTRACTION
+        public void IncrementScore(int score)
+        {
+            GameManager.instance.playerScore += score;
+            UpdateScoreText();
+        }
+
+
+        public static void HandleGameOver()
+        {
+            BestScoreManager.instance.CompareScoreWithBestScores(GameManager.instance.playerName, GameManager.instance.playerScore);
+            GameStateManager.instance.ProcessEvent(GameEvents.GameOver);
+        }
+
+
         private void InitiliazeLocalVariables()
         {
 
@@ -93,13 +108,6 @@ namespace GameLogic
         }
 
 
-        public void IncrementScore(int score)
-        {
-            GameManager.instance.playerScore += score;
-            UpdateScoreText();
-        }
-
-
         private void HandleWaitingToPlayState()
         {
             if (KeyboardManager.instance.IsSpacebarPressed())
@@ -119,13 +127,6 @@ namespace GameLogic
         }
 
 
-        public static void HandleGameOver()
-        {
-            BestScoreManager.instance.CompareScoreWithBestScores(GameManager.instance.playerName, GameManager.instance.playerScore);
-            GameStateManager.instance.ProcessEvent(GameEvents.GameOver);
-        }
-
-    
         private void AddAllListeners()
         {
             GameStateManager.instance.waitingToPlayPlayPressedEvent.AddListener(HandleWaitingToPlayPlayPressedEvent);

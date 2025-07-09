@@ -2,6 +2,7 @@ using System.Collections;
 using GameLogic;
 using UnityEngine;
 
+// INHERITANCE
 public class Enemy : MovingBody
 {
     [SerializeField] private GameObject projectile;
@@ -24,6 +25,8 @@ public class Enemy : MovingBody
     private const int m_scoreIncrementEnemyMid = 3;
     private const int m_scoreIncrementEnemyLarge = 1;
 
+
+    // POLYMORPHISM
     public override float horizontalSpeed { get { return m_horizontalSpeed; } }
     public override float verticalSpeed { get { return m_verticalSpeed; } }
     public override int scoreIncrement { get { return m_scoreIncrement; } }

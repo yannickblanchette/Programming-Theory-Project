@@ -60,6 +60,7 @@ namespace UtilityScripts
         }
 
 
+        // ABSTRACTION
         public int GetCurrentState()
         {
             return currentState;
