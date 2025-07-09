@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2093739636484661821}
   - component: {fileID: 1586460409371214398}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyMid
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,3 +149,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5fceef5f9a4f694db781f364185e12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 7803102531995169531, guid: c8cac2dae1c669d46a50040dc5450e71, type: 3}

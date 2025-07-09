@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class EnemySpawnManager : MonoBehaviour
 {
-    [SerializeField] private GameObject enemy;
-    private const float initialEnemyTime = 2f;
+    [SerializeField] private GameObject[] enemies;
+    private const float initialEnemyTime = 1f;
     private const float repeatingEnemyTime = 2f;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,6 +17,9 @@ public class EnemySpawnManager : MonoBehaviour
     private void InstantiateEnemy()
     {
         float positionY = Random.Range(-GameScreenManager.verticalRange, GameScreenManager.verticalRange);
+        int index = Random.Range(0, enemies.Length);
+
+        GameObject enemy = enemies[index];
         Vector3 enemyPosition = new Vector3(GameScreenManager.startPositionX, positionY, GameScreenManager.positionZ);
 
         Instantiate(enemy, enemyPosition, enemy.transform.rotation);

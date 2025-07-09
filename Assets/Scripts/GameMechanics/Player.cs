@@ -7,9 +7,8 @@ namespace GameLogic
         [SerializeField] private GameObject projectile;
 
         private float m_horizontalSpeed = 0f;
-        private float m_verticalSpeed = 5f;
+        private float m_verticalSpeed = 10f;
         private int m_scoreIncrement = 0;
-        private int numProjectiles;
         private float initialPositionX = -7f;
         private float initialPositionZ = -0.2f;
         private float verticalInput;
@@ -47,12 +46,6 @@ namespace GameLogic
             Vector3 projectilePosition = new Vector3(initialPositionX, gameObject.transform.position.y, initialPositionZ);
 
             Instantiate(projectile, projectilePosition, projectile.transform.rotation);
-            numProjectiles++;
-
-            if (numProjectiles >= 5)
-            {
-                GameScreenManager.HandleGameOver();
-            }
         }
     
     
@@ -68,7 +61,7 @@ namespace GameLogic
         protected override void OnTriggerEnter(Collider other)
         {
             //Player has been hit so it is Game Over
-            GameStateManager.instance.ProcessEvent(GameEvents.GameOver);
+            GameScreenManager.HandleGameOver();
             base.OnTriggerEnter(other);
         }
 
